@@ -30,7 +30,7 @@ export default function Home() {
   // 카테고리 목록 불러오기
   const fetchCategories = async () => {
     try {
-      const response = await fetch("YOUR_DJANGO_CATEGORY_API_URL");
+      const response = await fetch("http://127.0.0.1:8000/api/category/");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -47,17 +47,18 @@ export default function Home() {
     try {
       const categoryParam = categortId ? `&category_id=${categortId}` : "";
       const response = await fetch(
-        `YOUR_DJANGO_API_URL?limit=${LIMIT}&offset=${currentOffset}`
+        `http://127.0.0.1:8000/api/post/`
       );
       const data = await response.json();
+const results = data.results ?? [];
 
-      if (currentOffset === 0) {
-        setArticles(data);
-      } else {
-        setArticles((prev) => [...prev, ...data]);
-      }
+if (currentOffset === 0) {
+  setArticles(results);
+} else {
+  setArticles((prev) => [...prev, ...results]);
+}
 
-      setHasMore(data.length === LIMIT);
+setHasMore(!!data.next)
     } catch (error) {
       console.error("포스트 불러오기 실패: ", error);
     } finally {

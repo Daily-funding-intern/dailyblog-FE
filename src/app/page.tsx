@@ -38,8 +38,8 @@ export default function Home() {
 
   return (
     <main>
-      <HomeHeader />
       <div className="dailyblog_main_wrapper">
+        <HomeHeader />
         <section className="carousel_wrap">
           {carouselArticles.length > 0 && (
             <AliceCarousel

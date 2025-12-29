@@ -1,4 +1,4 @@
-import { headers } from "next/headers";
+"use client";
 
 export default function HomeHeader() {
   return (

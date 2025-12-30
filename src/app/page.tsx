@@ -1,7 +1,6 @@
 "use client";
 
 import HomeHeader from "@/components/HomeHeader";
-import { use, useEffect, useState } from "react";
 
 interface Category {
   id: number;
@@ -89,67 +88,8 @@ setHasMore(!!data.next)
         <HomeHeader />
         <section className="carousel_wrap"></section>
         <section className="articles_list_wrap">
-          <div className="category_div">
-            <div
-              className={`categort_badge ${
-                selectedCategory === null ? "active" : ""
-              }`}
-              onClick={() => handleCategoryClick(null)}
-            >
-              전체보기
-            </div>
-            {categories.map((category) => (
-              <div
-                key={category.id}
-                className={`categort_badge ${
-                  selectedCategory === category.id ? "active" : ""
-                }`}
-                onClick={() => handleCategoryClick(category.id)}
-              >
-                {category.name}
-              </div>
-            ))}
-          </div>
-          <div className="articles_list_div">
-            {articles.map((article) => (
-              <div key={article.id} className="article_item">
-                <a href={`/post?post_id=${article.id}`}>
-                  <div className="picture_div">
-                    <div
-                      className="picture"
-                      style={{ backgroundImage: `url("${article.thumbnail}")` }}
-                    ></div>
-                  </div>
-                </a>
-                <div className="info_div">
-                  <div className="category_badge">{article.category.name}</div>
-                  <a href={`/post?post_id=${article.id}`}>
-                    <p id={`content${article.id}`} className="title">
-                      {/* id 굳이 필요? */}
-                      {article.title}
-                    </p>
-                  </a>
-                  <p className="description">{article.description}</p>
-                  <a href={`/post?post_id=${article.id}`}>
-                    <p className="item_more_btn">MORE &gt;</p>
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {hasMore && (
-            <div className="more_btn_div">
-              MORE
-              <button
-                onClick={handleLoadMore}
-                disabled={loading}
-                className="load_more_btn"
-              >
-                {loading ? "로딩 중..." : "더보기"}
-              </button>
-            </div>
-          )}
+          <div className="category_div"></div>
+          <div className="articles_list_div"></div>
         </section>
       </div>
     </main>

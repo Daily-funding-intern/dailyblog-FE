@@ -38,7 +38,7 @@ export default function Home() {
   const fetchCarouselArticles = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/?limit=15&offset=0"
+        "http://127.0.0.1:8000/api/posts/?limit=15&offset=0"
       );
       const data = await response.json();
       setCarouselArticles(data);

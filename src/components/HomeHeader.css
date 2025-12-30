@@ -1,0 +1,85 @@
+/* 홈 헤더 */
+header.top_div {
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1280px) {
+  header.top_div {
+    max-width: 960px;
+    padding: 40px 60px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  header.top_div {
+    max-width: 100%;
+    padding: 30px 26px;
+  }
+}
+
+header.top_div img {
+  height: 38px;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  header.top_div img {
+    height: 32px;
+  }
+}
+
+header.top_div .link_to_dailyfunding {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  header.top_div .link_to_dailyfunding {
+    padding: 8px 16px;
+  }
+}
+
+header.top_div .link_to_dailyfunding:hover {
+  background-color: #e8e8e8;
+}
+
+header.top_div .link_to_dailyfunding span {
+  font-family: "Spoqa Han Sans", AppleGothic, Dotum, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.42px;
+  color: #333333;
+  user-select: none;
+}
+
+@media only screen and (max-width: 768px) {
+  header.top_div .link_to_dailyfunding span {
+    font-size: 12px;
+    letter-spacing: -0.36px;
+  }
+}
+
+header.top_div .link_to_dailyfunding img {
+  width: 16px;
+  height: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+  header.top_div .link_to_dailyfunding img {
+    width: 14px;
+    height: 14px;
+  }
+}

@@ -1,5 +1,7 @@
 "use client";
 
+import "./HomeHeader.css";
+
 export default function HomeHeader() {
   return (
     <header className="top_div">

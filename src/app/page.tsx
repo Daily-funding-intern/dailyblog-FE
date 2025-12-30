@@ -5,6 +5,7 @@ import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 import HomeHeader from "@/components/HomeHeader";
+import "./home-page.css";
 
 interface Category {
   id: number;

@@ -124,7 +124,7 @@ export default function Home() {
                   <div className="carousel_cover">
                     <div className="center_div">
                       <p className="category_badge">{article.category.name}</p>
-                      <a href={`/post?post_id=${article.id}`}>
+                      <a href={`/post/${article.id}`}>
                         <p className="title">{article.title}</p>
                       </a>
                       <p className="subtitle">{article.subtitle}</p>
@@ -164,7 +164,7 @@ export default function Home() {
           <div className="articles_list_div">
             {articles.map((article) => (
               <div key={article.id} className="article_item">
-                <a href={`/post?post_id=${article.id}`}>
+                <a href={`/post/${article.id}`}>
                   <div className="picture_div">
                     <div
                       className="picture"
@@ -174,14 +174,14 @@ export default function Home() {
                 </a>
                 <div className="info_div">
                   <div className="category_badge">{article.category.name}</div>
-                  <a href={`/post?post_id=${article.id}`}>
+                  <a href={`/post/${article.id}`}>
                     <p id={`content${article.id}`} className="title">
                       {/* id 굳이 필요? */}
                       {article.title}
                     </p>
                   </a>
                   <p className="description">{article.description}</p>
-                  <a href={`/post?post_id=${article.id}`}>
+                  <a href={`/post/${article.id}`}>
                     <p className="item_more_btn">MORE &gt;</p>
                   </a>
                 </div>

@@ -54,7 +54,7 @@ export default function Post() {
         const recommendData: RecommendPost[] = await recommendResponse.json();
         setRecommendPosts(recommendData);
       } catch (error) {
-        console.error("Failed to fetch post:", error);
+        console.error("포스트 불러오기 실패:", error);
       } finally {
         setLoading(false);
       }
@@ -104,7 +104,7 @@ export default function Post() {
           <section className="another_insight_wrap">
             <div className="another_insight_inner">
               <p className="title">또 다른 인사이트</p>
-              <div className="insight_item_div">
+              <div className="insight_items_div">
                 {recommendPosts.map((recommendPost) => (
                   <a
                     key={recommendPost.id}

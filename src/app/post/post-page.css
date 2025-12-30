@@ -325,69 +325,62 @@
     font-size: 31px;
   }
 }
+/* insight_items_div_pc / mob 통합 */
 .dailyblog_post_wrapper
   section.another_insight_wrap
   .another_insight_inner
-  .insight_items_div_pc {
+  .insight_items_div {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
+
 @media only screen and (max-width: 992px) {
   .dailyblog_post_wrapper
     section.another_insight_wrap
     .another_insight_inner
-    .insight_items_div_pc {
+    .insight_items_div {
     max-width: 878px;
   }
 }
-@media only screen and (max-width: 660px) {
-  .dailyblog_post_wrapper
-    section.another_insight_wrap
-    .another_insight_inner
-    .insight_items_div_pc {
-    display: none;
-  }
-}
+
 .dailyblog_post_wrapper
   section.another_insight_wrap
   .another_insight_inner
-  .insight_items_div_pc
+  .insight_items_div
   > a {
   width: calc(33.33% - 24px);
   vertical-align: top;
   margin: 0 12px;
   margin-bottom: 60px;
 }
+
 @media only screen and (max-width: 992px) {
   .dailyblog_post_wrapper
     section.another_insight_wrap
     .another_insight_inner
-    .insight_items_div_pc
+    .insight_items_div
     > a {
     width: calc(50% - 24px);
   }
 }
-.dailyblog_post_wrapper
-  section.another_insight_wrap
-  .another_insight_inner
-  .insight_items_div_mob {
-  display: none;
-}
+
 @media only screen and (max-width: 660px) {
   .dailyblog_post_wrapper
     section.another_insight_wrap
     .another_insight_inner
-    .insight_items_div_mob {
+    .insight_items_div {
     display: block;
-    overflow-x: hidden;
+    overflow-x: auto;
     white-space: nowrap;
     padding-left: 19.5px;
+    flex-wrap: nowrap;
   }
+
   .dailyblog_post_wrapper
     section.another_insight_wrap
     .another_insight_inner
-    .insight_items_div_mob
+    .insight_items_div
     > a {
     display: inline-block;
     width: calc(100% - 19.5px);
@@ -397,19 +390,7 @@
     vertical-align: top;
   }
 }
-.dailyblog_post_wrapper
-  section.another_insight_wrap
-  .another_insight_inner
-  .insight_items_div_mob.one {
-  padding-left: 0;
-}
-.dailyblog_post_wrapper
-  section.another_insight_wrap
-  .another_insight_inner
-  .insight_items_div_mob.one
-  a {
-  padding: 0 12px !important;
-}
+
 .dailyblog_post_wrapper
   section.another_insight_wrap
   .another_insight_inner

@@ -37,7 +37,9 @@ export default function Home() {
   // 캐러셀 불러오기
   const fetchCarouselArticles = async () => {
     try {
-      const response = await fetch("YOUR_DJANGO_API_URL?limit=15&offset=0");
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/posts/?limit=15&offset=0"
+      );
       const data = await response.json();
       setCarouselArticles(data);
     } catch (error) {

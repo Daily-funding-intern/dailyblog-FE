@@ -1,3 +1,5 @@
+@import url("//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css");
+
 * {
   margin: 0;
   padding: 0;
@@ -89,7 +91,7 @@ body {
 
 em {
   font-style: normal;
-  font-weight: 800;
+  /* font-weight: 800; */
 }
 
 button {
@@ -163,67 +165,4 @@ button {
 .customized_check.disabled {
   background-color: #ecf2f7;
   cursor: initial;
-}
-
-@font-face {
-  font-family: "Gothicssi";
-  src: url("/Fonts/HGggothic/HGGGOTHICSSI80G.ttf") format("truetype"),
-    url("/Fonts/HGggothic/HGGGOTHICSSI80G.woff") format("woff"),
-    url("/Fonts/HGggothic/HGGGOTHICSSI80G.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SoftGothicssi";
-  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-00G.woff2") format("woff2"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-00G.woff") format("woff"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-00G.otf") format("opentype");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SoftGothicssi";
-  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-20G.woff2") format("woff2"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-20G.woff") format("woff"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-20G.otf") format("opentype");
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SoftGothicssi";
-  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-40G.woff2") format("woff2"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-40G.woff") format("woff"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-40G.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SoftGothicssi";
-  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-60G.woff2") format("woff2"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-60G.woff") format("woff"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-60G.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SoftGothicssi";
-  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-80G.woff2") format("woff2"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-80G.woff") format("woff"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-80G.otf") format("opentype");
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SoftGothicssi";
-  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-99G.woff2") format("woff2"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-99G.woff") format("woff"),
-    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-99G.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
 }

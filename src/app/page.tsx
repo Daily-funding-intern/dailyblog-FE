@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import HomeHeader from "@/components/HomeHeader";
 
 interface Category {
@@ -45,19 +46,17 @@ export default function Home() {
     setLoading(true);
     try {
       const categoryParam = categortId ? `&category_id=${categortId}` : "";
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/post/`
-      );
+      const response = await fetch(`http://127.0.0.1:8000/api/post/`);
       const data = await response.json();
-const results = data.results ?? [];
+      const results = data.results ?? [];
 
-if (currentOffset === 0) {
-  setArticles(results);
-} else {
-  setArticles((prev) => [...prev, ...results]);
-}
+      if (currentOffset === 0) {
+        setArticles(results);
+      } else {
+        setArticles((prev) => [...prev, ...results]);
+      }
 
-setHasMore(!!data.next)
+      setHasMore(!!data.next);
     } catch (error) {
       console.error("포스트 불러오기 실패: ", error);
     } finally {

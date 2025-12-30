@@ -102,22 +102,33 @@ export default function Post() {
             </div>
           </section>
           <section className="another_insight_wrap">
-            {recommendPosts.map((recommendPost) => (
-              <a
-                key={recommendPost.id}
-                href={`/post?post_id=${recommendPost.id}`}
-                className="insight_item"
-              >
-                <div
-                  className="thumbnail"
-                  style={{ backgroundImage: `url(${recommendPost.thumbnail})` }}
-                ></div>
-                <div className="info">
-                  <p className="category">{recommendPost.category.name}</p>
-                  <p className="title">{recommendPost.title}</p>
-                </div>
-              </a>
-            ))}
+            <div className="another_insight_inner">
+              <p className="title">또 다른 인사이트</p>
+              <div className="insight_item_div">
+                {recommendPosts.map((recommendPost) => (
+                  <a
+                    key={recommendPost.id}
+                    href={`/post?post_id=${recommendPost.id}`}
+                  >
+                    <div className="item">
+                      <div
+                        className="image_div"
+                        style={{
+                          backgroundImage: `url(${recommendPost.thumbnail})`,
+                        }}
+                      >
+                        <p className="category">
+                          {recommendPost.category.name}
+                        </p>
+                      </div>
+                      <div className="info_div">
+                        <p className="article_title">{recommendPost.title}</p>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
           </section>
         </div>
       </div>

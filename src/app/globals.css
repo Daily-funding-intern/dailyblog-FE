@@ -1,42 +1,229 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+h1,
+h2,
+h3,
+p,
+body,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+#__next {
+  height: 100%;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+}
+
+input,
+textarea {
+  border-radius: 6px;
+  background-color: white;
+  -webkit-appearance: none;
+}
+
+input[type="button"] {
+  -webkit-appearance: none;
+}
+
+input[type="submit"] {
+  -webkit-appearance: none;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+}
+
+img {
+  vertical-align: bottom;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+  color: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+em {
+  font-style: normal;
+  font-weight: 800;
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  color: #303030;
+  font-family: "Noto Sans KR", AppleGothic, Dotum, sans-serif;
+  word-break: keep-all;
+  min-width: 320px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+body.overflow_hidden,
+html.overflow_hidden {
+  overflow: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+input {
+  font-family: "Spoqa Han Sans", AppleGothic, Dotum, sans-serif;
+}
+input::placeholder {
+  font-family: "Spoqa Han Sans", AppleGothic, Dotum, sans-serif;
+}
+
+select {
+  background-repeat: no-repeat;
+  background-position: calc(100% - 10px) 50%;
+  font-family: "Spoqa Han Sans", AppleGothic, Dotum, sans-serif;
+  color: #303030;
+}
+
+textarea {
+  font-family: "Spoqa Han Sans", AppleGothic, Dotum, sans-serif;
+}
+
+button {
+  background-color: transparent;
+  user-select: none;
+  font-family: "Noto Sans KR", AppleGothic, Dotum, sans-serif;
+}
+
+.customized_check {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #d4d8dc;
+  background-color: white;
+  cursor: pointer;
+}
+
+.customized_check.true {
+  border: 1px solid #0081ff;
+  background-image: url("/Img/check_blue.svg");
+  background-size: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.customized_check.disabled {
+  background-color: #ecf2f7;
+  cursor: initial;
+}
+
+@font-face {
+  font-family: "Gothicssi";
+  src: url("/Fonts/HGggothic/HGGGOTHICSSI80G.ttf") format("truetype"),
+    url("/Fonts/HGggothic/HGGGOTHICSSI80G.woff") format("woff"),
+    url("/Fonts/HGggothic/HGGGOTHICSSI80G.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SoftGothicssi";
+  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-00G.woff2") format("woff2"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-00G.woff") format("woff"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-00G.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SoftGothicssi";
+  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-20G.woff2") format("woff2"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-20G.woff") format("woff"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-20G.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SoftGothicssi";
+  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-40G.woff2") format("woff2"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-40G.woff") format("woff"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-40G.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SoftGothicssi";
+  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-60G.woff2") format("woff2"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-60G.woff") format("woff"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-60G.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SoftGothicssi";
+  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-80G.woff2") format("woff2"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-80G.woff") format("woff"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-80G.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SoftGothicssi";
+  src: url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-99G.woff2") format("woff2"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-99G.woff") format("woff"),
+    url("/Fonts/SOFTggothic/HGSOFTGGOTHICSSI-99G.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
 }

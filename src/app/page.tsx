@@ -104,6 +104,11 @@ export default function Home() {
   return (
     <main>
       <div className="dailyblog_main_wrapper">
+        <img
+          className="to_top_btn"
+          alt="맨 위로 올라가기"
+          src="/Img/to_top.png"
+        />
         <HomeHeader />
         <section className="carousel_wrap">
           {carouselArticles.length > 0 && (
@@ -128,6 +133,9 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+              infinite
+              disableButtonsControls={true}
+              disableDotsControls={false}
             />
           )}
         </section>

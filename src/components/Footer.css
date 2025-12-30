@@ -1,38 +1,38 @@
-footer.footer_wrapper {
+.footer_wrapper {
   background-color: #f6f7f8;
   text-align: center;
   padding: 36px 0 29px 0;
   font-family: "Spoqa Han Sans", AppleGothic, Dotum, sans-serif;
 }
 @media only screen and (max-width: 768px) {
-  footer.footer_wrapper {
+  .footer_wrapper {
     padding: 45px 26px 53px 26px;
   }
 }
-footer.footer_wrapper .icon_div {
+.footer_wrapper .icon_div {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
 @media only screen and (max-width: 768px) {
-  footer.footer_wrapper .icon_div {
+  .footer_wrapper .icon_div {
     margin-bottom: 27px;
   }
 }
-footer.footer_wrapper .icon_div img {
+.footer_wrapper .icon_div img {
   width: 37px;
   margin: 0 15px;
   cursor: pointer;
 }
-footer.footer_wrapper .subscribe_div {
+.footer_wrapper .subscribe_div {
   font-size: 18px;
   letter-spacing: -0.36px;
   line-height: 28px;
   color: #666666;
 }
 @media only screen and (max-width: 768px) {
-  footer.footer_wrapper .subscribe_div {
+  .footer_wrapper .subscribe_div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -40,16 +40,16 @@ footer.footer_wrapper .subscribe_div {
     letter-spacing: -0.3px;
   }
 }
-footer.footer_wrapper .subscribe_div p {
+.footer_wrapper .subscribe_div p {
   font-weight: 400;
   user-select: none;
   margin-right: 5px;
 }
-footer.footer_wrapper .subscribe_div em {
+.footer_wrapper .subscribe_div em {
   font-weight: 600;
   user-select: none;
 }
-footer.footer_wrapper .subscribe_div .input_div {
+.footer_wrapper .subscribe_div .input_div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,11 +58,11 @@ footer.footer_wrapper .subscribe_div .input_div {
   width: 100%;
 }
 @media only screen and (max-width: 768px) {
-  footer.footer_wrapper .subscribe_div .input_div {
+  .footer_wrapper .subscribe_div .input_div {
     margin-top: 8px;
   }
 }
-footer.footer_wrapper .subscribe_div .input_div input {
+.footer_wrapper .subscribe_div .input_div input {
   width: 270px;
   border: none;
   border-radius: 0;
@@ -74,10 +74,10 @@ footer.footer_wrapper .subscribe_div .input_div input {
   letter-spacing: -0.42px;
   color: #666666;
 }
-footer.footer_wrapper .subscribe_div .input_div input::placeholder {
+.footer_wrapper .subscribe_div .input_div input::placeholder {
   color: #c1c1c1;
 }
-footer.footer_wrapper .subscribe_div .input_div button {
+.footer_wrapper .subscribe_div .input_div button {
   width: 80px;
   height: 30px;
   border: none;
@@ -90,7 +90,7 @@ footer.footer_wrapper .subscribe_div .input_div button {
   line-height: 30px;
   cursor: pointer;
 }
-footer.footer_wrapper .linkto_funding_div {
+.footer_wrapper .linkto_funding_div {
   font-size: 18px;
   letter-spacing: -0.36px;
   line-height: 28px;
@@ -98,7 +98,7 @@ footer.footer_wrapper .linkto_funding_div {
   margin-bottom: 22px;
 }
 @media only screen and (max-width: 768px) {
-  footer.footer_wrapper .linkto_funding_div {
+  .footer_wrapper .linkto_funding_div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -106,17 +106,17 @@ footer.footer_wrapper .linkto_funding_div {
     letter-spacing: -0.3px;
   }
 }
-footer.footer_wrapper .linkto_funding_div p {
+.footer_wrapper .linkto_funding_div p {
   font-weight: 400;
   user-select: none;
   margin-right: 5px;
 }
-footer.footer_wrapper .linkto_funding_div em {
+.footer_wrapper .linkto_funding_div em {
   font-weight: 600;
   user-select: none;
   cursor: pointer;
 }
-footer.footer_wrapper .copyright {
+.footer_wrapper .copyright {
   color: #656565;
   font-size: 14px;
   font-weight: 300;
@@ -125,7 +125,7 @@ footer.footer_wrapper .copyright {
   user-select: none;
 }
 @media only screen and (max-width: 768px) {
-  footer.footer_wrapper .copyright {
+  .footer_wrapper .copyright {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -133,16 +133,16 @@ footer.footer_wrapper .copyright {
     letter-spacing: -0.36px;
   }
 }
-footer.footer_wrapper .copyright span {
+.footer_wrapper .copyright span {
   display: block;
   margin-right: 4px;
   width: 100%;
 }
-footer.footer_wrapper .copyright span:last-child {
+.footer_wrapper .copyright span:last-child {
   margin-right: 0;
 }
 @media only screen and (max-width: 768px) {
-  footer.footer_wrapper .copyright span {
+  .footer_wrapper .copyright span {
     width: unset;
   }
 }

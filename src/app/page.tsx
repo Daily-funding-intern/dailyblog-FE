@@ -29,17 +29,14 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCateory] = useState<number | null>(null);
 
+  const [currentPage, setCurrentPage] = useState(0);
   const [articles, setArticles] = useState<Article[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [offset, setOffset] = useState(0);
-  const LIMIT = 6;
 
   // 캐러셀 불러오기
   const fetchCarouselArticles = async () => {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/posts/?limit=15&offset=0"
-      );
+      const response = await fetch("http://127.0.0.1:8000/api/post/featured/");
       const data = await response.json();
       setCarouselArticles(data);
     } catch (error) {
@@ -60,17 +57,19 @@ export default function Home() {
 
   // 기사 목록 불러오기
   const fetchArticles = async (
-    currentOffset: number,
-    categortId: number | null = null
+    page: number,
+    categoryId: number | null = null
   ) => {
     setLoading(true);
     try {
-      const categoryParam = categortId ? `&category_id=${categortId}` : "";
-      const response = await fetch(`http://127.0.0.1:8000/api/post/`);
+      const categoryParam = categoryId ? `&category_id=${categoryId}` : "";
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/post/?page=${page}${categoryParam}`
+      );
       const data = await response.json();
       const results = data.results ?? [];
 
-      if (currentOffset === 0) {
+      if (page === 1) {
         setArticles(results);
       } else {
         setArticles((prev) => [...prev, ...results]);
@@ -92,14 +91,14 @@ export default function Home() {
 
   const handleCategoryClick = (categoryId: number | null) => {
     setSelectedCateory(categoryId);
-    setOffset(0); // offset 초기화 (해당 카테고리 게시글로 다시 로딩)
-    fetchArticles(0, categoryId);
+    setCurrentPage(1);
+    fetchArticles(1, categoryId);
   };
 
   const handleLoadMore = () => {
-    const nextOffset = offset + LIMIT;
-    setOffset(nextOffset);
-    fetchArticles(nextOffset);
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+    fetchArticles(nextPage, selectedCategory);
   };
 
   return (

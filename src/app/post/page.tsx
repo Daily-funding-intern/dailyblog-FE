@@ -3,6 +3,7 @@
 import PostHeader from "@/components/PostHeader";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import "./post-page.css";
 
 interface Category {
   id: number;

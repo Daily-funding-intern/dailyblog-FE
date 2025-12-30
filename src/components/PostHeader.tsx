@@ -1,5 +1,7 @@
 "use client";
 
+import "./PostHeader.css";
+
 interface Category {
   id: number;
   name: string;

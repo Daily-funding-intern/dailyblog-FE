@@ -1,6 +1,24 @@
 "use client";
 
-export default function HomeHeader() {
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface Article {
+  id: number;
+  title: string;
+  subtitle?: string;
+  description: string;
+  thumbnail: string;
+  category: Category;
+}
+
+interface PostHeaderProps {
+  article: Article;
+}
+
+export default function PostHeader({ article }: PostHeaderProps) {
   return (
     <header>
       <div className="top_div">
@@ -13,14 +31,17 @@ export default function HomeHeader() {
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAAAXNSR0IArs4c6QAAAlVJREFUeAHt3DtOw0AQBuAERaLiHhQcgBbR0CLlEFwBCQnOQwEtR+EGUEEJUojMv44n2Rg7wvY+5rErjXZ3HMfxp3HSjDKbYVRVtUA8IpZuX8ZOACYPLrYZbI4RTwg3VoiC1ujAwmHR2KBh90wZbzaPBot7z4OWt+5xvEJ8UaaZTVcaDPzKIpo3LE7r4sOioHU/hn+xmteVSgMEdA5XFmHRbLnSBmNZRhuNZRFtMpYltGBYFtCCY2lGi4alES06lia0ZFga0JJjSUbLhiURLTuWJDQ2WBLQ2GFxRmOLxRGNPRYnNDFYHNDEYeVEE4uVA008Vko0NVgp0NRhxURTixUDTT1WSDQzWCHQzGFNQTOLNQbNPNYQtIJFWs0MkN6uoYLVwqJtD9oa+fbY9WfRyVZnyHRVmg9WsNrF0aC5zsf2+ERi0/nXPinD/ijDNfsueY4Di46DJ8iddeTtplBBXZ1/fqWZ7rndq4werA/kv30xrAtaD1b9BY9jXT8EdtEOYVEJFrRG4j9YBW0Elnm0IZVFWDSbezynYJlDC4FlBi0klnq0GFhq0WJiqUNLgaUGLSWWeLQcWGLRcmKJQ+OAJQaNExZ7NI5YbNE4Y7FDk4DFBk0SVnY0iVjZ0CRjJUfTgJUMTRNWdDSNWNHQNGMFR7OAFQzNEtZkNItYo9EsYw1GK1hEVv9L3eGuoYK1w6IVTHrRulo233HixXw+f6U3sDbj3l9wz9eIH+/e11iv6j1E7xBulG5lTwgeS4Rr4nPdkJfeofrZvUGSTbfy3ofLuIGJQ9ti/QIuiZPLeH6a7gAAAABJRU5ErkJggg=="
         />
       </div>
-      <div className="post_header_wrap">
-        {" "}
-        {/* 백그라운드 url (thumbnail) */}
+      <div
+        className="post_header_wrap"
+        style={{ backgroundImage: `url(${article.thumbnail})` }}
+      >
         <div className="black_cover"></div>
         <div className="post_head_cover">
-          {" "}
-          {/* 캐러셀이랑 같음 */}
-          <div className="center_div"></div>
+          <div className="center_div">
+            <p className="category">{article.category.name}</p>
+            <h1 className="title">{article.title}</h1>
+            {article.subtitle && <p className="subtitle">{article.subtitle}</p>}
+          </div>
           <div className="bottom_div">
             <img
               alt="데일리펀딩"

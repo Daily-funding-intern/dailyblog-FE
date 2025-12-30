@@ -14,6 +14,8 @@ interface Post {
   title: string;
   content: string;
   category: Category;
+  description: string;
+  thumbnail: string;
 }
 
 interface RecommendPost {
@@ -71,7 +73,7 @@ export default function Post() {
   return (
     <main>
       <div className="dailyblog_post_wrapper">
-        <PostHeader />
+        <PostHeader article={post} />
         <div className="body_div">
           <section className="article_content_wrap closed">
             <article

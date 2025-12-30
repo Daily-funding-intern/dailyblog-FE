@@ -33,6 +33,13 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   // 캐러셀 불러오기
   const fetchCarouselArticles = async () => {
     try {
@@ -108,6 +115,7 @@ export default function Home() {
           className="to_top_btn"
           alt="맨 위로 올라가기"
           src="/Img/to_top.png"
+          onClick={scrollToTop}
         />
         <HomeHeader />
         <section className="carousel_wrap">
@@ -189,15 +197,12 @@ export default function Home() {
             ))}
           </div>
           {hasMore && (
-            <div className="more_btn_div">
-              MORE
-              <button
-                onClick={handleLoadMore}
-                disabled={loading}
-                className="load_more_btn"
-              >
-                {loading ? "로딩 중..." : "더보기"}
-              </button>
+            <div className="more_btn_div" onClick={handleLoadMore}>
+              <p>MORE</p>
+              <img
+                alt="더보기"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAJCAYAAAACTR1pAAAAAXNSR0IArs4c6QAAAJxJREFUKBWljm0RgzAQRBMUIKEOwAGDA+qgOIgT4qA4IRLAQSVUQt8yfDQBfnEzS3KbfdxZ51xpjOnQ03v/5bwssi8eK3KtpQlq0IjqK3iB3mRUdcanQRPS5IFAzhlVArX8PFgllnDgWqBo8gnUkzEzqMsZjK1t1vU0qaefawPVJfAH64FUESQjAmUksKwDJPMAyvyD2W5fT2+36wc9QzwqcTdSCwAAAABJRU5ErkJggg=="
+              ></img>
             </div>
           )}
         </section>

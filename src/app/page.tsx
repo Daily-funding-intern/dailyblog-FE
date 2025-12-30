@@ -29,9 +29,9 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCateory] = useState<number | null>(null);
 
-  const [currentPage, setCurrentPage] = useState(0);
   const [articles, setArticles] = useState<Article[]>([]);
   const [hasMore, setHasMore] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // 캐러셀 불러오기
   const fetchCarouselArticles = async () => {
@@ -86,7 +86,7 @@ export default function Home() {
   useEffect(() => {
     fetchCarouselArticles();
     fetchCategories();
-    fetchArticles(0);
+    fetchArticles(1);
   }, []);
 
   const handleCategoryClick = (categoryId: number | null) => {
@@ -128,11 +128,6 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-              autoPlay
-              autoPlayInterval={3000}
-              infinite
-              disableButtonsControls={true}
-              disableDotsControls={false}
             />
           )}
         </section>

@@ -24,7 +24,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const [carouselArticles, setCarouselArticles] = useState<Article[]>([]);
-  
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCateory] = useState<number | null>(null);
 
@@ -32,7 +32,7 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
   const LIMIT = 6;
-  
+
   // 캐러셀 불러오기
   const fetchCarouselArticles = async () => {
     try {
@@ -41,6 +41,8 @@ export default function Home() {
       setCarouselArticles(data);
     } catch (error) {
       console.error("캐러셀 게시물 불러오기 실패: ", error);
+    }
+  };
 
   // 카테고리 목록 불러오기
   const fetchCategories = async () => {
@@ -133,8 +135,66 @@ export default function Home() {
           )}
         </section>
         <section className="articles_list_wrap">
-          <div className="category_div"></div>
-          <div className="articles_list_div"></div>
+          <div className="category_div">
+            <div
+              className={`categort_badge ${
+                selectedCategory === null ? "active" : ""
+              }`}
+              onClick={() => handleCategoryClick(null)}
+            >
+              전체보기
+            </div>
+            {categories.map((category) => (
+              <div
+                key={category.id}
+                className={`categort_badge ${
+                  selectedCategory === category.id ? "active" : ""
+                }`}
+                onClick={() => handleCategoryClick(category.id)}
+              >
+                {category.name}
+              </div>
+            ))}
+          </div>
+          <div className="articles_list_div">
+            {articles.map((article) => (
+              <div key={article.id} className="article_item">
+                <a href={`/post?post_id=${article.id}`}>
+                  <div className="picture_div">
+                    <div
+                      className="picture"
+                      style={{ backgroundImage: `url("${article.thumbnail}")` }}
+                    ></div>
+                  </div>
+                </a>
+                <div className="info_div">
+                  <div className="category_badge">{article.category.name}</div>
+                  <a href={`/post?post_id=${article.id}`}>
+                    <p id={`content${article.id}`} className="title">
+                      {/* id 굳이 필요? */}
+                      {article.title}
+                    </p>
+                  </a>
+                  <p className="description">{article.description}</p>
+                  <a href={`/post?post_id=${article.id}`}>
+                    <p className="item_more_btn">MORE &gt;</p>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+          {hasMore && (
+            <div className="more_btn_div">
+              MORE
+              <button
+                onClick={handleLoadMore}
+                disabled={loading}
+                className="load_more_btn"
+              >
+                {loading ? "로딩 중..." : "더보기"}
+              </button>
+            </div>
+          )}
         </section>
       </div>
     </main>

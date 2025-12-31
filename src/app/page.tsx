@@ -12,7 +12,7 @@ import "./home-page.css";
 export default function Home() {
   const router = useRouter();
   const params = useParams();
-  const categoryId = params.categoryId ? Number(params.categoryId) : null;
+  const categoryId = params.id ? Number(params.id) : null;
 
   const [loading, setLoading] = useState(false);
   const [carouselArticles, setCarouselArticles] = useState<Article[]>([]);
@@ -21,7 +21,8 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const articlesRef = useRef<HTMLDivElement>(null); // 타이포 수정
+  const articlesRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<AliceCarousel>(null); // 라이브러리...?
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -39,9 +40,15 @@ export default function Home() {
 
   const fetchCarouselArticles = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/post/featured/");
+      const categoryParam = categoryId ? `?category_id=${categoryId}` : "";
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/post/featured/${categoryParam}`
+      );
       const data = await response.json();
-      setCarouselArticles(data);
+      console.log("캐러셀 응답 데이터:", data); // 응답 확인
+      console.log("캐러셀 개수:", data.length); // 개수 확인
+
+      setCarouselArticles(data.slice(0, 15));
     } catch (error) {
       console.error("캐러셀 게시물 불러오기 실패: ", error);
     }
@@ -86,16 +93,22 @@ export default function Home() {
 
   useEffect(() => {
     fetchCarouselArticles();
-    fetchCategories(); // 추가
+    fetchCategories();
   }, []);
 
   useEffect(() => {
+    fetchCarouselArticles();
     setCurrentPage(1);
     fetchArticles(1, categoryId);
+    setTimeout(() => {
+      if (articlesRef.current) {
+        const articleTop = articlesRef.current.offsetTop;
 
-    if (categoryId !== null) {
-      setTimeout(scrollToArticles, 100);
-    }
+        if (window.scrollY !== articleTop) {
+          scrollToArticles();
+        }
+      }
+    }, 100);
   }, [categoryId]);
 
   const handleCategoryClick = (selectedCategoryId: number | null) => {
@@ -109,7 +122,7 @@ export default function Home() {
   const handleLoadMore = () => {
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
-    fetchArticles(nextPage, categoryId); // 수정!
+    fetchArticles(nextPage, categoryId);
   };
 
   return (
@@ -135,7 +148,12 @@ export default function Home() {
                   <div className="black_cover"></div>
                   <div className="carousel_cover">
                     <div className="center_div">
-                      <p className="category_badge">{article.category.name}</p>
+                      <p
+                        className="category_badge"
+                        onClick={() => handleCategoryClick(article.category.id)}
+                      >
+                        {article.category.name}
+                      </p>
                       <a href={`/post/${article.id}`}>
                         <p className="title">{article.title}</p>
                       </a>
@@ -150,6 +168,19 @@ export default function Home() {
               disableDotsControls={false}
             />
           )}
+          <button
+            className="carousel_left_btn"
+            onClick={() => carouselRef.current?.slidePrev()}
+          >
+            <img src="/Img/left.png" />
+          </button>
+          <button
+            className="carousel_right_btn"
+            onClick={() => carouselRef.current?.slideNext()}
+          >
+            {" "}
+            <img src="/Img/right.png" />
+          </button>
         </section>
         <section className="articles_list_wrap" ref={articlesRef}>
           <div className="category_div">
@@ -200,10 +231,7 @@ export default function Home() {
           {hasMore && (
             <div className="more_btn_div" onClick={handleLoadMore}>
               <p>MORE</p>
-              <img
-                alt="더보기"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAJCAYAAAACTR1pAAAAAXNSR0IArs4c6QAAAJxJREFUKBWljm0RgzAQRBMUIKEOwAGDA+qgOIgT4qA4IRLAQSVUQt8yfDQBfnEzS3KbfdxZ51xpjOnQ03v/5bwssi8eK3KtpQlq0IjqK3iB3mRUdcanQRPS5IFAzhlVArX8PFgllnDgWqBo8gnUkzEzqMsZjK1t1vU0qaefawPVJfAH64FUESQjAmUksKwDJPMAyvyD2W5fT2+36wc9QzwqcTdSCwAAAABJRU5ErkJggg=="
-              ></img>
+              <img alt="더보기" src="/Img/more.png"></img>
             </div>
           )}
         </section>

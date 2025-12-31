@@ -1,11 +1,12 @@
+/* 기존 스타일 */
 .new_post_page {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background: #f5f5f5;
 }
 
 .admin_header {
-  background-color: white;
-  padding: 20px 40px;
+  background: white;
+  padding: 1.5rem 2rem;
   border-bottom: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-between;
@@ -13,167 +14,269 @@
 }
 
 .admin_header h1 {
-  font-size: 24px;
-  color: #303030;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 .header_actions {
   display: flex;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .btn_home,
 .btn_logout {
-  padding: 10px 20px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
 .btn_home {
-  background-color: #f0f0f0;
-  color: #303030;
+  background: #f0f0f0;
+  color: #333;
 }
 
 .btn_logout {
-  background-color: #e74c3c;
+  background: #ff4444;
   color: white;
 }
 
 .content_wrapper {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.content_wrapper form {
-  background-color: white;
-  padding: 40px;
-  border-radius: 12px;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
 }
 
 .form_section {
-  margin-bottom: 30px;
+  background: white;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .form_section label {
   display: block;
   font-weight: 600;
-  margin-bottom: 10px;
-  color: #303030;
+  margin-bottom: 0.5rem;
+  color: #333;
 }
 
-.form_section input,
-.form_section select,
-.form_section textarea {
+.form_section input[type="text"],
+.form_section textarea,
+.form_section select {
   width: 100%;
-  padding: 12px;
+  padding: 0.75rem;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 15px;
-  font-family: inherit;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
 .form_section textarea {
   resize: vertical;
 }
 
-.form_section small {
-  display: block;
-  margin-top: 5px;
-  color: #999;
-  font-size: 13px;
+.thumbnail_preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.thumbnail_preview img {
+  max-width: 400px;
+  border-radius: 8px;
 }
 
 .thumbnail_upload {
   display: block;
-  border: 2px dashed #ddd;
-  border-radius: 8px;
-  padding: 60px 20px;
-  text-align: center;
   cursor: pointer;
-}
-
-.thumbnail_upload:hover {
-  border-color: #0099ff;
-  background-color: #f0f8ff;
 }
 
 .upload_placeholder {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  border: 2px dashed #ddd;
+  padding: 3rem;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.upload_placeholder:hover {
+  border-color: #4caf50;
+  background: #f9f9f9;
 }
 
 .upload_placeholder span {
-  font-size: 16px;
-  font-weight: 600;
+  display: block;
+  font-size: 1.1rem;
   color: #666;
+  margin-bottom: 0.5rem;
 }
 
 .upload_placeholder small {
-  font-size: 13px;
   color: #999;
-}
-
-.thumbnail_preview {
-  position: relative;
-  display: inline-block;
-}
-
-.thumbnail_preview img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-
-.thumbnail_preview button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .checkbox_label {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
   cursor: pointer;
 }
 
-.checkbox_label input {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+.checkbox_label input[type="checkbox"] {
+  width: auto;
 }
 
+/* 에디터 툴바 */
+.editor_toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  flex-wrap: wrap;
+}
+
+.editor_toolbar button {
+  padding: 0.5rem 0.75rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.editor_toolbar button:hover {
+  background: #e9e9e9;
+}
+
+.editor_toolbar button.is_active {
+  background: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+/* 에디터 컨텐츠 영역 */
+.editor_content {
+  border: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  background: white;
+  min-height: 400px;
+}
+
+/* Tiptap 에디터 내부 스타일 - 중요! */
+.editor_content .ProseMirror {
+  padding: 1rem;
+  min-height: 400px;
+  outline: none;
+}
+
+/* 에디터 내부 텍스트 스타일 적용 */
+.editor_content .ProseMirror strong {
+  font-weight: bold;
+}
+
+.editor_content .ProseMirror em {
+  font-style: italic;
+}
+
+.editor_content .ProseMirror h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.editor_content .ProseMirror h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.editor_content .ProseMirror p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.editor_content .ProseMirror ul,
+.editor_content .ProseMirror ol {
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.editor_content .ProseMirror ul {
+  list-style-type: disc;
+}
+
+.editor_content .ProseMirror ol {
+  list-style-type: decimal;
+}
+
+.editor_content .ProseMirror li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.editor_content .ProseMirror li p {
+  margin-bottom: 0.5rem;
+}
+
+.editor_content .ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* 포커스 시 테두리 */
+.editor_content .ProseMirror:focus {
+  outline: none;
+}
+
+.editor_content:focus-within {
+  border-color: #4caf50;
+}
+
+/* 플레이스홀더 */
+.editor_content .ProseMirror p.is-editor-empty:first-child::before {
+  content: "본문 내용을 입력하세요...";
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+  float: left;
+}
+
+/* 제출 버튼 */
 .form_actions {
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem 0;
 }
 
 .form_actions button {
-  width: 100%;
-  padding: 15px;
-  background-color: #0099ff;
+  padding: 0.75rem 2rem;
+  background: #4caf50;
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
-.form_actions button:hover {
-  background-color: #0081ff;
+.form_actions button:hover:not(:disabled) {
+  background: #45a049;
 }
 
 .form_actions button:disabled {
-  background-color: #ccc;
+  background: #ccc;
   cursor: not-allowed;
 }

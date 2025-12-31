@@ -1,0 +1,179 @@
+.new_post_page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.admin_header {
+  background-color: white;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin_header h1 {
+  font-size: 24px;
+  color: #303030;
+}
+
+.header_actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn_home,
+.btn_logout {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn_home {
+  background-color: #f0f0f0;
+  color: #303030;
+}
+
+.btn_logout {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.content_wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.content_wrapper form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+}
+
+.form_section {
+  margin-bottom: 30px;
+}
+
+.form_section label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #303030;
+}
+
+.form_section input,
+.form_section select,
+.form_section textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.form_section textarea {
+  resize: vertical;
+}
+
+.form_section small {
+  display: block;
+  margin-top: 5px;
+  color: #999;
+  font-size: 13px;
+}
+
+.thumbnail_upload {
+  display: block;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 60px 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.thumbnail_upload:hover {
+  border-color: #0099ff;
+  background-color: #f0f8ff;
+}
+
+.upload_placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upload_placeholder span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #666;
+}
+
+.upload_placeholder small {
+  font-size: 13px;
+  color: #999;
+}
+
+.thumbnail_preview {
+  position: relative;
+  display: inline-block;
+}
+
+.thumbnail_preview img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.thumbnail_preview button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.checkbox_label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox_label input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.form_actions {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.form_actions button {
+  width: 100%;
+  padding: 15px;
+  background-color: #0099ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form_actions button:hover {
+  background-color: #0081ff;
+}
+
+.form_actions button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+"use client";
+
+import { usePathname } from "next/navigation";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
@@ -7,12 +9,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith("/admin");
+
   return (
     <html lang="ko">
       <head></head>
       <body>
         {children}
-        <Footer />
+        {!isAdminPage && <Footer />}
       </body>
     </html>
   );

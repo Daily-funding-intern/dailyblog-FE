@@ -1,0 +1,151 @@
+.admin_layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin_sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo_section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo_section img {
+  max-width: 150px;
+  margin-bottom: 10px;
+}
+
+.admin_nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.admin_nav a {
+  padding: 12px 16px;
+  border-radius: 6px;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.admin_nav a:hover,
+.admin_nav a.active {
+  background-color: #34495e;
+}
+
+.logout_btn {
+  margin-top: auto;
+  padding: 12px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.admin_content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f5f5f5;
+}
+
+.page_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.btn_primary {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.posts_table {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.posts_table th,
+.posts_table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.posts_table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.btn_edit,
+.btn_delete {
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn_edit {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn_delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.post_editor {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.form_group {
+  margin-bottom: 20px;
+}
+
+.form_group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form_group input,
+.form_group textarea,
+.form_group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.form_actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.form_actions button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

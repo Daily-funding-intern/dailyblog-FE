@@ -1,36 +1,16 @@
 "use client";
 
 import PostHeader from "@/components/PostHeader";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Category, Post, RecommendPost } from "@/app/types";
 import "./post-page.css";
 
-interface Category {
-  id: number;
-  name: string;
-}
-
-interface Post {
-  id: number;
-  title: string;
-  content: string;
-  category: Category;
-  description: string;
-  thumbnail: string;
-}
-
-interface RecommendPost {
-  id: number;
-  title: string;
-  thumbnail: string;
-  category: Category;
-}
-
-export default function Post() {
+export default function PostPage() {
   const [loading, setLoading] = useState(true);
 
-  const searchParams = useSearchParams();
-  const postId = searchParams.get("post_id");
+  const params = useParams();
+  const postId = params.id as string;
 
   const [post, setPost] = useState<Post | null>(null);
   const [recommendPosts, setRecommendPosts] = useState<RecommendPost[]>([]);
@@ -38,16 +18,26 @@ export default function Post() {
   useEffect(() => {
     if (!postId) return;
 
-    // 포스트 데이터 가져오기
     const fetchPost = async () => {
       try {
         const postResponse = await fetch(
           `http://127.0.0.1:8000/api/post/${postId}/`
         );
         const postData: Post = await postResponse.json();
+
+        // ===== 🔍 디버깅 시작 =====
+        console.log("=== API 응답 전체 ===");
+        console.log(JSON.stringify(postData, null, 2));
+        console.log("=== 개별 필드 확인 ===");
+        console.log("title:", postData.title);
+        console.log("subtitle:", postData.subtitle);
+        console.log("thumbnail:", postData.thumbnail);
+        console.log("category:", postData.category);
+        console.log("===================");
+        // ===== 🔍 디버깅 끝 =====
+
         setPost(postData);
 
-        // 추천 포스트 가져오기
         const recommendResponse = await fetch(
           `http://127.0.0.1:8000/api/post/recommend/?category_id=${postData.category.id}`
         );
@@ -106,10 +96,7 @@ export default function Post() {
               <p className="title">또 다른 인사이트</p>
               <div className="insight_items_div">
                 {recommendPosts.map((recommendPost) => (
-                  <a
-                    key={recommendPost.id}
-                    href={`/post?post_id=${recommendPost.id}`}
-                  >
+                  <a key={recommendPost.id} href={`/post/${recommendPost.id}`}>
                     <div className="item">
                       <div
                         className="image_div"

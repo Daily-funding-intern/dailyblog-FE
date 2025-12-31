@@ -1,37 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter, useParams } from "next/navigation";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 import HomeHeader from "@/components/HomeHeader";
+import { Category, Article } from "./types";
 import "./home-page.css";
 
-interface Category {
-  id: number;
-  name: string;
-}
-
-interface Article {
-  id: number;
-  title: string;
-  subtitle?: string;
-  description: string;
-  thumbnail: string;
-  category: Category;
-}
-
 export default function Home() {
+  const router = useRouter();
+  const params = useParams();
+  const categoryId = params.categoryId ? Number(params.categoryId) : null;
+
   const [loading, setLoading] = useState(false);
-
   const [carouselArticles, setCarouselArticles] = useState<Article[]>([]);
-
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCateory] = useState<number | null>(null);
-
   const [articles, setArticles] = useState<Article[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const articlesRef = useRef<HTMLDivElement>(null); // 타이포 수정
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -40,7 +30,13 @@ export default function Home() {
     });
   };
 
-  // 캐러셀 불러오기
+  const scrollToArticles = () => {
+    articlesRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const fetchCarouselArticles = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/api/post/featured/");
@@ -51,7 +47,6 @@ export default function Home() {
     }
   };
 
-  // 카테고리 목록 불러오기
   const fetchCategories = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/api/category/");
@@ -62,7 +57,6 @@ export default function Home() {
     }
   };
 
-  // 기사 목록 불러오기
   const fetchArticles = async (
     page: number,
     categoryId: number | null = null
@@ -92,20 +86,30 @@ export default function Home() {
 
   useEffect(() => {
     fetchCarouselArticles();
-    fetchCategories();
-    fetchArticles(1);
+    fetchCategories(); // 추가
   }, []);
 
-  const handleCategoryClick = (categoryId: number | null) => {
-    setSelectedCateory(categoryId);
+  useEffect(() => {
     setCurrentPage(1);
     fetchArticles(1, categoryId);
+
+    if (categoryId !== null) {
+      setTimeout(scrollToArticles, 100);
+    }
+  }, [categoryId]);
+
+  const handleCategoryClick = (selectedCategoryId: number | null) => {
+    if (selectedCategoryId === null) {
+      router.push("/");
+    } else {
+      router.push(`/category/${selectedCategoryId}`);
+    }
   };
 
   const handleLoadMore = () => {
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
-    fetchArticles(nextPage, selectedCategory);
+    fetchArticles(nextPage, categoryId); // 수정!
   };
 
   return (
@@ -147,11 +151,11 @@ export default function Home() {
             />
           )}
         </section>
-        <section className="articles_list_wrap">
+        <section className="articles_list_wrap" ref={articlesRef}>
           <div className="category_div">
             <div
-              className={`categort_badge ${
-                selectedCategory === null ? "active" : ""
+              className={`category_badge ${
+                categoryId === null ? "active" : ""
               }`}
               onClick={() => handleCategoryClick(null)}
             >
@@ -160,8 +164,8 @@ export default function Home() {
             {categories.map((category) => (
               <div
                 key={category.id}
-                className={`categort_badge ${
-                  selectedCategory === category.id ? "active" : ""
+                className={`category_badge ${
+                  categoryId === category.id ? "active" : ""
                 }`}
                 onClick={() => handleCategoryClick(category.id)}
               >
@@ -183,10 +187,7 @@ export default function Home() {
                 <div className="info_div">
                   <div className="category_badge">{article.category.name}</div>
                   <a href={`/post/${article.id}`}>
-                    <p id={`content${article.id}`} className="title">
-                      {/* id 굳이 필요? */}
-                      {article.title}
-                    </p>
+                    <p className="title">{article.title}</p>
                   </a>
                   <p className="description">{article.description}</p>
                   <a href={`/post/${article.id}`}>

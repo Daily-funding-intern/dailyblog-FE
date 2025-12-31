@@ -26,34 +26,12 @@ header.top_div > img {
   }
 }
 
-header.top_div img {
-  height: 38px;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 768px) {
-  header.top_div img {
-    height: 32px;
-  }
-}
-
 header.top_div > div {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
 }
-
-/* header.top_div .link_to_dailyfunding {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background-color: #f5f5f5;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-} */
 
 header.top_div .link_to_dailyfunding {
   display: flex;
@@ -96,17 +74,5 @@ header.top_div .link_to_dailyfunding span {
   header.top_div .link_to_dailyfunding span {
     font-size: 12px;
     letter-spacing: -0.36px;
-  }
-}
-
-header.top_div .link_to_dailyfunding img {
-  width: 16px;
-  height: 16px;
-}
-
-@media only screen and (max-width: 768px) {
-  header.top_div .link_to_dailyfunding img {
-    width: 14px;
-    height: 14px;
   }
 }

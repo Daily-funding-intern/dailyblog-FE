@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import { apiGet, apiPost, apiUploadFile } from "@/lib/api";
 
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -12,9 +14,14 @@ import "./add-post.css";
 
 export default function NewPost() {
   const router = useRouter();
+
+  // 페이지 진입 시 인증
+  const { isAuthenticated, isLoading: authLoading } = useAuth({
+    requireAuth: true,
+  });
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploading, setUploading] = useState(false);
-
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
@@ -46,16 +53,16 @@ export default function NewPost() {
     },
   });
 
+  // 인증 완료 후에만 카테고리 패치
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    if (isAuthenticated) {
+      fetchCategories();
+    }
+  }, [isAuthenticated]);
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/category/", {
-        // credentials: "include", // 세션 쿠키 포함
-      });
-      const data = await response.json();
+      const data = await apiGet("/api/category/");
       setCategories(data);
     } catch (error) {
       console.error("카테고리 불러오기 실패:", error);
@@ -80,19 +87,10 @@ export default function NewPost() {
       const uploadFormData = new FormData();
       uploadFormData.append("file", file);
 
-      const response = await fetch("http://127.0.0.1:8000/api/uploadfile/", {
-        method: "POST",
-        // credentials: "include", // 세션 쿠키 포함
-        body: uploadFormData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setThumbnailUrl(data.file_url); // S3 URL 저장
-        console.log("썸네일 업로드 성공:", data.file_url);
-      } else {
-        alert("썸네일 업로드에 실패했습니다.");
-      }
+      // api로 자동 인증
+      const data = await apiUploadFile(file);
+      setThumbnailUrl(data.file_url); // S3 URL 저장
+      console.log("썸네일 업로드 성공:", data.file_url);
     } catch (error) {
       console.error("썸네일 업로드 실패:", error);
       alert("썸네일 업로드 중 오류가 발생했습니다.");
@@ -111,26 +109,9 @@ export default function NewPost() {
       if (!file || !editor) return;
 
       try {
-        const uploadFormData = new FormData();
-        uploadFormData.append("file", file);
-
-        const response = await fetch("http://127.0.0.1:8000/api/uploadfile/", {
-          method: "POST",
-          //   credentials: "include",
-          body: uploadFormData,
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          // 임시 URL을 에디터에 삽입
-          editor.chain().focus().setImage({ src: data.file_url }).run();
-          console.log("이미지 업로드 성공:", data.file_url);
-        } else if (response.status === 401 || response.status === 403) {
-          alert("로그인이 필요합니다.");
-          router.push("/admin/login");
-        } else {
-          alert("이미지 업로드에 실패했습니다.");
-        }
+        const data = await apiUploadFile(file);
+        editor.chain().focus().setImage({ src: data.file_url }).run();
+        console.log("이미지 업로드 성공:", data.file_url);
       } catch (error) {
         console.error("이미지 업로드 실패:", error);
         alert("이미지 업로드 중 오류가 발생했습니다.");
@@ -152,7 +133,7 @@ export default function NewPost() {
     }
 
     // 로그인 페이지로 이동
-    router.push("/admin/login");
+    window.location.href = "http://127.0.0.1:8000/admin/login/?next=/admin/";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -181,28 +162,12 @@ export default function NewPost() {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/post-create/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // credentials: "include", // 세션 쿠키 포함
-        body: JSON.stringify(postData),
-      });
+      // ✅ apiPost로 자동 인증 체크
+      const data = await apiPost("/api/post-create/", postData);
 
-      if (response.ok) {
-        const data = await response.json();
-        alert("글이 등록되었습니다.");
-        console.log("생성된 포스트:", data);
-        router.push(`/admin/post`);
-      } else if (response.status === 401 || response.status === 403) {
-        alert("로그인이 필요합니다.");
-        router.push("/admin/login");
-      } else {
-        const errorData = await response.json();
-        console.error("등록 실패:", errorData);
-        alert(`등록 실패: ${JSON.stringify(errorData)}`);
-      }
+      alert("글이 등록되었습니다.");
+      console.log("생성된 포스트:", data);
+      router.push(`/admin/post/`);
     } catch (error) {
       console.error("등록 실패:", error);
       alert("등록에 실패했습니다.");
@@ -210,6 +175,21 @@ export default function NewPost() {
       setUploading(false);
     }
   };
+
+  if (authLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <p>로딩 중...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="new_post_page">
@@ -222,9 +202,9 @@ export default function NewPost() {
           >
             관리자 페이지
           </button>
-          {/* <button onClick={handleLogout} className="btn_logout">
+          <button onClick={handleLogout} className="btn_logout">
             로그아웃
-          </button> */}
+          </button>
         </div>
       </header>
 

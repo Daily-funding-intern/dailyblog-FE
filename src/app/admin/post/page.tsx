@@ -2,39 +2,37 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import { apiGet, apiDelete } from "@/lib/api";
 import { Article } from "@/app/types";
 import "../admin.css";
 
-export default function AdminPage() {
+export default function AdminPostPage() {
   const router = useRouter();
+
+  // 페이지 진입 시 인증 확인
+  const { isAuthenticated, isLoading: authLoading } = useAuth({
+    requireAuth: true,
+  });
+
   const [posts, setPosts] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
+  // 인증 완료 후에만 데이터 로드
   useEffect(() => {
-    fetchPosts(currentPage);
-  }, [currentPage]);
+    if (isAuthenticated) {
+      fetchPosts(currentPage);
+    }
+  }, [currentPage, isAuthenticated]);
 
   const fetchPosts = async (page: number) => {
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/post/?page=${page}`,
-        {
-          // credentials: "include",
-        }
-      );
+      // fetchWithAuth로 자동 인증
+      const data = await apiGet(`/api/post/?page=${page}`);
 
-      if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-          router.push("/admin/login");
-          return;
-        }
-        throw new Error("포스트 불러오기 실패");
-      }
-
-      const data = await response.json();
       const results = data.results ?? data;
       setPosts(results);
 
@@ -45,6 +43,7 @@ export default function AdminPage() {
       }
     } catch (error) {
       console.error("포스트 불러오기 실패:", error);
+      // fetchWithAuth가 이미 401/403 처리
     } finally {
       setLoading(false);
     }
@@ -58,23 +57,12 @@ export default function AdminPage() {
     if (!confirm("정말 삭제하시겠습니까?")) return;
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/post/${postId}/`,
-        {
-          method: "DELETE",
-          // credentials: "include",
-        }
-      );
+      await apiDelete(`/api/post/${postId}/`);
 
-      if (response.ok) {
-        alert("삭제되었습니다.");
-        fetchPosts(currentPage);
-      } else {
-        alert("삭제에 실패했습니다.");
-      }
+      alert("삭제되었습니다.");
+      fetchPosts(currentPage);
     } catch (error) {
       console.error("삭제 실패:", error);
-      alert("삭제 중 오류가 발생했습니다.");
     }
   };
 
@@ -82,15 +70,15 @@ export default function AdminPage() {
     try {
       await fetch("http://127.0.0.1:8000/api/logout/", {
         method: "POST",
-        // credentials: "include",
+        credentials: "include",
       });
     } catch (error) {
       console.error("로그아웃 실패:", error);
     }
-    router.push("/admin/login");
+    window.location.href = "http://127.0.0.1:8000/admin/login/?next=/admin/";
   };
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div
         style={{
@@ -114,7 +102,7 @@ export default function AdminPage() {
         </div>
 
         <nav className="admin_nav">
-          <a href="/admin" className="active">
+          <a href="/admin/post" className="active">
             포스트 관리
           </a>
           <a href="/admin/post/add">새 글 작성</a>
@@ -196,7 +184,6 @@ export default function AdminPage() {
           </tbody>
         </table>
 
-        {/* 페이지 네이션 */}
         {totalPages > 1 && (
           <div className="pagination">
             <button

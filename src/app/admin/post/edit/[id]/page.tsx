@@ -2,17 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { Category, Post } from "@/app/types";
 import "../../add/add-post.css";
+import { apiGet, apiPost, apiPut, apiUploadFile } from "@/lib/api";
 
 export default function EditPost() {
   const router = useRouter();
   const params = useParams();
   const postId = params.id as string;
+  const { isAuthenticated, isLoading: authLoading } = useAuth({
+    requireAuth: true,
+  });
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -56,14 +61,15 @@ export default function EditPost() {
   }, [editor, initialContent]);
 
   useEffect(() => {
-    fetchCategories();
-    fetchPost();
-  }, [postId]);
+    if (isAuthenticated) {
+      fetchCategories();
+      fetchPost();
+    }
+  }, [postId, isAuthenticated]);
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/category/");
-      const data = await response.json();
+      const data = await apiGet("/api/category/");
       setCategories(data);
     } catch (error) {
       console.error("카테고리 불러오기 실패:", error);
@@ -72,13 +78,7 @@ export default function EditPost() {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/post/${postId}/`);
-
-      if (!response.ok) {
-        throw new Error("포스트 불러오기 실패");
-      }
-
-      const data: Post = await response.json();
+      const data: Post = await apiGet(`/post/${postId}/`);
 
       console.log("=== 불러온 데이터 확인 ===");
       console.log("전체 데이터:", data);
@@ -126,21 +126,9 @@ export default function EditPost() {
     reader.readAsDataURL(file);
 
     try {
-      const uploadFormData = new FormData();
-      uploadFormData.append("file", file);
-
-      const response = await fetch("http://127.0.0.1:8000/api/uploadfile/", {
-        method: "POST",
-        body: uploadFormData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setThumbnailUrl(data.file_url);
-        console.log("썸네일 업로드 성공:", data.file_url);
-      } else {
-        alert("썸네일 업로드에 실패했습니다.");
-      }
+      const data = await apiUploadFile(file);
+      setThumbnailUrl(data.file_url);
+      console.log("썸네일 업로드 성공:", data.file_url);
     } catch (error) {
       console.error("썸네일 업로드 실패:", error);
       alert("썸네일 업로드 중 오류가 발생했습니다.");
@@ -158,20 +146,9 @@ export default function EditPost() {
       if (!file || !editor) return;
 
       try {
-        const uploadFormData = new FormData();
-        uploadFormData.append("file", file);
-
-        const response = await fetch("http://127.0.0.1:8000/api/uploadfile/", {
-          method: "POST",
-          body: uploadFormData,
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          editor.chain().focus().setImage({ src: data.file_url }).run();
-        } else {
-          alert("이미지 업로드에 실패했습니다.");
-        }
+        const data = await apiUploadFile(file);
+        editor.chain().focus().setImage({ src: data.file_url }).run();
+        console.log("이미지 업로드 성공:", data.file_url);
       } catch (error) {
         console.error("이미지 업로드 실패:", error);
         alert("이미지 업로드 중 오류가 발생했습니다.");
@@ -194,7 +171,7 @@ export default function EditPost() {
     const postData = {
       title: formData.title,
       subtitle: formData.subtitle,
-      // description: formData.description, // 추가
+      // description: formData.description,
       content: editor.getHTML(),
       category: parseInt(formData.category_id),
       is_featured: true,
@@ -206,27 +183,11 @@ export default function EditPost() {
     console.log("======================");
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/post/${postId}/`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
-        }
-      );
+      const data = await apiPut(`/api/post/${postId}/`, postData);
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("수정 성공:", result);
-        alert("글이 수정되었습니다.");
-        router.push(`/post/${postId}`);
-      } else {
-        const errorData = await response.json();
-        console.error("수정 실패 응답:", errorData);
-        alert(`수정 실패: ${JSON.stringify(errorData)}`);
-      }
+      alert("글이 수정되었습니다.");
+      console.log("수정된 포스트:", data);
+      router.push(`/post/${postId}`);
     } catch (error) {
       console.error("수정 실패:", error);
       alert("수정에 실패했습니다.");
@@ -235,7 +196,7 @@ export default function EditPost() {
     }
   };
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div
         style={{

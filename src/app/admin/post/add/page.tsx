@@ -9,7 +9,6 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { Category } from "@/app/types";
 import "./add-post.css";
-import { read } from "fs";
 
 export default function NewPost() {
   const router = useRouter();
@@ -195,7 +194,7 @@ export default function NewPost() {
         const data = await response.json();
         alert("글이 등록되었습니다.");
         console.log("생성된 포스트:", data);
-        router.push(`/`);
+        router.push(`/admin/post`);
       } else if (response.status === 401 || response.status === 403) {
         alert("로그인이 필요합니다.");
         router.push("/admin/login");
@@ -217,8 +216,11 @@ export default function NewPost() {
       <header>
         <h1>새 글 작성</h1>
         <div className="header_actions">
-          <button onClick={() => router.push("/")} className="btn_home">
-            홈으로
+          <button
+            onClick={() => router.push("/admin/post")}
+            className="btn_home"
+          >
+            관리자 페이지
           </button>
           {/* <button onClick={handleLogout} className="btn_logout">
             로그아웃

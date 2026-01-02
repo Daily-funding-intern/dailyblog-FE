@@ -115,6 +115,15 @@ export default function Home() {
     if (selectedCategoryId === null) {
       router.push("/");
     } else {
+      setTimeout(() => {
+        if (articlesRef.current) {
+          const articleTop = articlesRef.current.offsetTop;
+
+          if (window.scrollY !== articleTop) {
+            scrollToArticles();
+          }
+        }
+      }, 100);
       router.push(`/category/${selectedCategoryId}`);
     }
   };
@@ -138,6 +147,7 @@ export default function Home() {
         <section className="carousel_wrap">
           {carouselArticles.length > 0 && (
             <AliceCarousel
+              ref={carouselRef}
               mouseTracking
               items={carouselArticles.map((article) => (
                 <div

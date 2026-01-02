@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { Category, Post } from "@/app/types";
 import "../../add/add-post.css";
-import { apiGet, apiPost, apiPut, apiUploadFile } from "@/lib/api";
+import { apiGet, apiPut, apiUploadFile } from "@/lib/api";
 
 export default function EditPost() {
   const router = useRouter();

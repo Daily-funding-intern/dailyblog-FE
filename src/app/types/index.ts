@@ -7,7 +7,7 @@ export interface Article {
   id: number;
   title: string;
   subtitle?: string;
-  description: string;
+  description?: string;
   thumbnail: string;
   category: Category;
 }
@@ -17,7 +17,7 @@ export interface Post {
   title: string;
   content: string;
   subtitle?: string;
-  description: string;
+  description?: string;
   thumbnail: string;
   category: Category;
 }

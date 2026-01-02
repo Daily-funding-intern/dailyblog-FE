@@ -18,7 +18,7 @@ export default function NewPost() {
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
-    description: "",
+    // description: "",
     category_id: "",
     // is_featured: true,
   });
@@ -303,20 +303,6 @@ export default function NewPost() {
                 setFormData({ ...formData, subtitle: e.target.value });
               }}
               placeholder="부제목을 입력하세요"
-              required
-            />
-          </section>
-
-          {/* 요약 */}
-          <section className="form_section">
-            <label>요약 *</label>
-            <textarea
-              value={formData.description}
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
-              placeholder="목록에 표시될 요약을 입력하세요"
-              rows={3}
               required
             />
           </section>

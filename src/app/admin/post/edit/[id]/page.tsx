@@ -17,12 +17,12 @@ export default function EditPost() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [initialContent, setInitialContent] = useState("");
+  const [initialContent, setInitialContent] = useState(""); // 에디터 초기 내용
 
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
-    // description 제거
+    // description: "",
     category_id: "",
   });
 
@@ -30,6 +30,7 @@ export default function EditPost() {
   const [thumbnailPreview, setThumbnailPreview] = useState<string>("");
   const [thumbnailUrl, setThumbnailUrl] = useState<string>("");
 
+  // Tiptap 에디터 - 초기 내용과 함께 생성
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -38,7 +39,7 @@ export default function EditPost() {
         openOnClick: false,
       }),
     ],
-    content: initialContent,
+    content: initialContent, // 초기 내용 설정
     immediatelyRender: false,
     editorProps: {
       attributes: {
@@ -47,6 +48,7 @@ export default function EditPost() {
     },
   });
 
+  // 에디터가 준비되면 내용 업데이트
   useEffect(() => {
     if (editor && initialContent) {
       editor.commands.setContent(initialContent);
@@ -78,14 +80,27 @@ export default function EditPost() {
 
       const data: Post = await response.json();
 
+      console.log("=== 불러온 데이터 확인 ===");
+      console.log("전체 데이터:", data);
+      console.log("title:", data.title);
+      console.log("subtitle:", data.subtitle);
+      console.log("description:", data.description);
+      console.log("category:", data.category);
+      console.log("content:", data.content);
+      console.log("======================");
+
+      // 폼 데이터 설정
       setFormData({
         title: data.title,
         subtitle: data.subtitle || "",
+        // description: data.description,
         category_id: data.category.id.toString(),
-        // description 제거! ✅
       });
 
+      // 에디터 초기 내용 설정
       setInitialContent(data.content);
+
+      // 썸네일 설정
       setThumbnailUrl(data.thumbnail);
       setThumbnailPreview(data.thumbnail);
     } catch (error) {
@@ -122,6 +137,7 @@ export default function EditPost() {
       if (response.ok) {
         const data = await response.json();
         setThumbnailUrl(data.file_url);
+        console.log("썸네일 업로드 성공:", data.file_url);
       } else {
         alert("썸네일 업로드에 실패했습니다.");
       }
@@ -178,18 +194,22 @@ export default function EditPost() {
     const postData = {
       title: formData.title,
       subtitle: formData.subtitle,
-      // description은 백엔드가 content에서 자동 생성
+      // description: formData.description, // 추가
       content: editor.getHTML(),
       category: parseInt(formData.category_id),
       is_featured: true,
       thumbnail: thumbnailUrl,
     };
 
+    console.log("=== 전송할 데이터 확인 ===");
+    console.log(postData);
+    console.log("======================");
+
     try {
       const response = await fetch(
         `http://127.0.0.1:8000/api/post/${postId}/`,
         {
-          method: "PATCH",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -198,11 +218,13 @@ export default function EditPost() {
       );
 
       if (response.ok) {
+        const result = await response.json();
+        console.log("수정 성공:", result);
         alert("글이 수정되었습니다.");
         router.push(`/post/${postId}`);
       } else {
         const errorData = await response.json();
-        console.error("수정 실패:", errorData);
+        console.error("수정 실패 응답:", errorData);
         alert(`수정 실패: ${JSON.stringify(errorData)}`);
       }
     } catch (error) {
@@ -231,7 +253,7 @@ export default function EditPost() {
   return (
     <div className="new_post_page">
       <header>
-        <h1>글 수정</h1>
+        <h1>글 수정 (ID: {postId})</h1>
         <div className="header_actions">
           <button
             onClick={() => router.push("/admin/post")}
@@ -296,6 +318,9 @@ export default function EditPost() {
                 </option>
               ))}
             </select>
+            <small style={{ color: "#666", marginTop: "5px" }}>
+              현재 선택: {formData.category_id}
+            </small>
           </section>
 
           {/* 제목 */}

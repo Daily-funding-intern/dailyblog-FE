@@ -124,8 +124,8 @@ export default function NewPost() {
   const handleLogout = async () => {
     try {
       // 장고 로그아웃 API..
-      await fetch("http://127.0.0.1:8000/api/logout/", {
-        method: "POST",
+      await fetch("http://localhost:8000/admin/logout/", {
+        method: "GET",
         credentials: "include",
       });
     } catch (error) {
@@ -133,7 +133,7 @@ export default function NewPost() {
     }
 
     // 로그인 페이지로 이동
-    window.location.href = "http://127.0.0.1:8000/admin/login/?next=/admin/";
+    window.location.href = "http://localhost:8000/admin/login/?next=/admin/";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

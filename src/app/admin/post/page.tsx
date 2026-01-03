@@ -68,14 +68,14 @@ export default function AdminPostPage() {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://127.0.0.1:8000/api/logout/", {
-        method: "POST",
+      await fetch("http://localhost:8000/admin/logout/", {
+        method: "GET",
         credentials: "include",
       });
     } catch (error) {
       console.error("로그아웃 실패:", error);
     }
-    window.location.href = "http://127.0.0.1:8000/admin/login/?next=/admin/";
+    window.location.href = "http://localhost:8000/admin/login/?next=/admin/";
   };
 
   if (authLoading || loading) {

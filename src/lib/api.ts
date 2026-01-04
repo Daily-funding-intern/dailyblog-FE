@@ -1,7 +1,7 @@
 // API 요청 유틸리티 - 인증 체크를 중앙화
 
-const API_BASE_URL = "http://127.0.0.1:8000";
-const LOGIN_URL = "http://127.0.0.1:8000/admin/login/?next=/admin/";
+const API_BASE_URL = "http://localhost:8000";
+const LOGIN_URL = "http://localhost:8000/admin/login/?next=/admin/";
 
 // 쿠키에서 CSRF 토큰을 읽어오는 함수
 function getCsrfToken(): string | null {
@@ -62,7 +62,7 @@ export async function fetchWithAuth(
   const response = await fetch(fullUrl, {
     ...options,
     credentials: "include", // 모든 요청에 쿠키 자동 포함
-    // headers,
+    headers,
   });
 
   // 401 또는 403 에러 처리
@@ -102,7 +102,7 @@ export async function apiPost(endpoint: string, data: any) {
  */
 export async function apiPut(endpoint: string, data: any) {
   const response = await fetchWithAuth(endpoint, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },

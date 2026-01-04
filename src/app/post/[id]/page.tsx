@@ -21,7 +21,7 @@ export default function PostPage() {
     const fetchPost = async () => {
       try {
         const postResponse = await fetch(
-          `http://127.0.0.1:8000/api/post/${postId}/`
+          `http://localhost:8000/api/post/${postId}/`
         );
         const postData: Post = await postResponse.json();
 
@@ -39,7 +39,7 @@ export default function PostPage() {
         setPost(postData);
 
         const recommendResponse = await fetch(
-          `http://127.0.0.1:8000/api/post/recommend/?category_id=${postData.category.id}`
+          `http://localhost:8000/api/post/recommend/?category_id=${postData.category.id}`
         );
         const recommendData: RecommendPost[] = await recommendResponse.json();
         setRecommendPosts(recommendData);

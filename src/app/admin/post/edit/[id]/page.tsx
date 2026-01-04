@@ -79,7 +79,7 @@ export default function EditPost() {
 
   const fetchPost = async () => {
     try {
-      const data: Post = await apiGet(`/post/${postId}/`);
+      const data: Post = await apiGet(`/api/post/${postId}/`);
 
       console.log("=== 불러온 데이터 확인 ===");
       console.log("전체 데이터:", data);

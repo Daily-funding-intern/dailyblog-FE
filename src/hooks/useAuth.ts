@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
-const LOGIN_URL = "http://127.0.0.1:8000/admin/login/?next=/admin/";
+const API_BASE_URL = "http://localhost:8000";
+const LOGIN_URL = "http://localhost:8000/admin/login/?next=/admin/";
 
 interface UseAuthOptions {
   redirectTo?: string;

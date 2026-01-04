@@ -42,7 +42,7 @@ export default function Home() {
     try {
       const categoryParam = categoryId ? `?category_id=${categoryId}` : "";
       const response = await fetch(
-        `http://127.0.0.1:8000/api/post/featured/${categoryParam}`
+        `http://localhost:8000/api/post/featured/${categoryParam}`
       );
       const data = await response.json();
       console.log("캐러셀 응답 데이터:", data); // 응답 확인
@@ -56,7 +56,7 @@ export default function Home() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/category/");
+      const response = await fetch("http://localhost:8000/api/category/");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -72,7 +72,7 @@ export default function Home() {
     try {
       const categoryParam = categoryId ? `&category_id=${categoryId}` : "";
       const response = await fetch(
-        `http://127.0.0.1:8000/api/post/?page=${page}${categoryParam}`
+        `http://localhost:8000/api/post/?page=${page}${categoryParam}`
       );
       const data = await response.json();
       const results = data.results ?? [];

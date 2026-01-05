@@ -1,8 +1,11 @@
 "use client";
 
-import PostHeader from "@/components/PostHeader";
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { apiGet } from "@/lib/api";
+
+import PostHeader from "@/components/PostHeader";
 import { Category, Post, RecommendPost } from "@/app/types";
 import "./post-page.css";
 
@@ -20,10 +23,7 @@ export default function PostPage() {
 
     const fetchPost = async () => {
       try {
-        const postResponse = await fetch(
-          `http://localhost:8000/api/post/${postId}/`
-        );
-        const postData: Post = await postResponse.json();
+        const postData: Post = await apiGet(`/api/post/${postId}/`);
 
         // ===== 🔍 디버깅 시작 =====
         console.log("=== API 응답 전체 ===");
@@ -38,10 +38,9 @@ export default function PostPage() {
 
         setPost(postData);
 
-        const recommendResponse = await fetch(
-          `http://localhost:8000/api/post/recommend/?category_id=${postData.category.id}`
+        const recommendData: RecommendPost[] = await apiGet(
+          `/api/post/recommend/?category_id=${postData.category.id}`
         );
-        const recommendData: RecommendPost[] = await recommendResponse.json();
         setRecommendPosts(recommendData);
       } catch (error) {
         console.error("포스트 불러오기 실패:", error);
@@ -81,13 +80,13 @@ export default function PostPage() {
                   우리는 매일 금융의 각을 넓혀가는 <br />
                   데일리언입니다.
                 </p>
-                <a
+                <Link
                   href="https://linktr.ee/dailyfunding"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <u>데일리언과 함께하기 &gt;</u>
-                </a>
+                </Link>
               </div>
             </div>
           </section>
@@ -96,7 +95,10 @@ export default function PostPage() {
               <p className="title">또 다른 인사이트</p>
               <div className="insight_items_div">
                 {recommendPosts.map((recommendPost) => (
-                  <a key={recommendPost.id} href={`/post/${recommendPost.id}`}>
+                  <Link
+                    key={recommendPost.id}
+                    href={`/post/${recommendPost.id}`}
+                  >
                     <div className="item">
                       <div
                         className="image_div"
@@ -104,15 +106,16 @@ export default function PostPage() {
                           backgroundImage: `url(${recommendPost.thumbnail})`,
                         }}
                       >
-                        <p className="category">
-                          {recommendPost.category.name}
-                        </p>
+                        <div className="category_div">
+                          <div className="black_back"></div>
+                          <span>{recommendPost.category.name}</span>
+                        </div>
                       </div>
                       <div className="info_div">
                         <p className="article_title">{recommendPost.title}</p>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>

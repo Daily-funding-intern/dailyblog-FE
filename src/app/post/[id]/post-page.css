@@ -419,7 +419,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  color: transparent;
+  display: inline-block;
   font-size: 14px;
   letter-spacing: -0.84px;
   padding: 4px 14px 6px 14px;
@@ -446,12 +446,11 @@
   .image_div
   .category_div
   span {
-  position: absolute;
-  top: 4px;
-  left: 14px;
+  position: relative;
   color: white;
   z-index: 2;
 }
+
 .dailyblog_post_wrapper
   section.another_insight_wrap
   .another_insight_inner

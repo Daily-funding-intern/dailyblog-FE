@@ -98,9 +98,9 @@ export async function apiPost(endpoint: string, data: any) {
 }
 
 /**
- * PUT 요청 헬퍼
+ * Patch 요청 헬퍼
  */
-export async function apiPut(endpoint: string, data: any) {
+export async function apiPatch(endpoint: string, data: any) {
   const response = await fetchWithAuth(endpoint, {
     method: "PATCH",
     headers: {

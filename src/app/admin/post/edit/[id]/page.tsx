@@ -10,7 +10,7 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { Category, Post } from "@/app/types";
 import "../../add/add-post.css";
-import { apiGet, apiPut, apiUploadFile } from "@/lib/api";
+import { apiGet, apiPatch, apiUploadFile } from "@/lib/api";
 
 export default function EditPost() {
   const router = useRouter();
@@ -184,7 +184,7 @@ export default function EditPost() {
     console.log("======================");
 
     try {
-      const data = await apiPut(`/api/post/${postId}/`, postData);
+      const data = await apiPatch(`/api/post/${postId}/`, postData);
 
       alert("글이 수정되었습니다.");
       console.log("수정된 포스트:", data);

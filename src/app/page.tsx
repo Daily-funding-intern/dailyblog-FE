@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import { apiGet } from "@/lib/api";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 
@@ -40,11 +42,8 @@ export default function Home() {
 
   const fetchCarouselArticles = async () => {
     try {
-      const categoryParam = categoryId ? `?category_id=${categoryId}` : "";
-      const response = await fetch(
-        `http://localhost:8000/api/post/featured/${categoryParam}`
-      );
-      const data = await response.json();
+      const data = await apiGet(`/api/post/featured/`);
+
       console.log("캐러셀 응답 데이터:", data); // 응답 확인
       console.log("캐러셀 개수:", data.length); // 개수 확인
 
@@ -56,8 +55,7 @@ export default function Home() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/category/");
-      const data = await response.json();
+      const data = await apiGet("/api/category/");
       setCategories(data);
     } catch (error) {
       console.error("카테고리 불러오기 실패: ", error);
@@ -71,18 +69,10 @@ export default function Home() {
     setLoading(true);
     try {
       const categoryParam = categoryId ? `&category_id=${categoryId}` : "";
-      const response = await fetch(
-        `http://localhost:8000/api/post/?page=${page}${categoryParam}`
-      );
-      const data = await response.json();
+      const data = await apiGet(`/api/post/?page=${page}${categoryParam}`);
       const results = data.results ?? [];
 
-      if (page === 1) {
-        setArticles(results);
-      } else {
-        setArticles((prev) => [...prev, ...results]);
-      }
-
+      setArticles((prev) => (page === 1 ? results : [...prev, ...results]));
       setHasMore(!!data.next);
     } catch (error) {
       console.error("포스트 불러오기 실패: ", error);
@@ -97,10 +87,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetchCarouselArticles();
     setCurrentPage(1);
     fetchArticles(1, categoryId);
-    setTimeout(() => {
+
+    const scrollTimer = setTimeout(() => {
       if (articlesRef.current) {
         const articleTop = articlesRef.current.offsetTop;
 
@@ -109,23 +99,14 @@ export default function Home() {
         }
       }
     }, 100);
+
+    return () => clearTimeout(scrollTimer); // cleanup
   }, [categoryId]);
 
   const handleCategoryClick = (selectedCategoryId: number | null) => {
-    if (selectedCategoryId === null) {
-      router.push("/");
-    } else {
-      setTimeout(() => {
-        if (articlesRef.current) {
-          const articleTop = articlesRef.current.offsetTop;
-
-          if (window.scrollY !== articleTop) {
-            scrollToArticles();
-          }
-        }
-      }, 100);
-      router.push(`/category/${selectedCategoryId}`);
-    }
+    const path =
+      selectedCategoryId === null ? "/" : `/category/${selectedCategoryId}`;
+    router.push(path);
   };
 
   const handleLoadMore = () => {
@@ -164,9 +145,9 @@ export default function Home() {
                       >
                         {article.category.name}
                       </p>
-                      <a href={`/post/${article.id}`}>
+                      <Link href={`/post/${article.id}`}>
                         <p className="title">{article.title}</p>
-                      </a>
+                      </Link>
                       <p className="subtitle">{article.subtitle}</p>
                     </div>
                     <div className="bottom_div"></div>
@@ -217,23 +198,23 @@ export default function Home() {
           <div className="articles_list_div">
             {articles.map((article) => (
               <div key={article.id} className="article_item">
-                <a href={`/post/${article.id}`}>
+                <Link href={`/post/${article.id}`}>
                   <div className="picture_div">
                     <div
                       className="picture"
                       style={{ backgroundImage: `url("${article.thumbnail}")` }}
                     ></div>
                   </div>
-                </a>
+                </Link>
                 <div className="info_div">
                   <div className="category_badge">{article.category.name}</div>
-                  <a href={`/post/${article.id}`}>
+                  <Link href={`/post/${article.id}`}>
                     <p className="title">{article.title}</p>
-                  </a>
+                  </Link>
                   <p className="description">{article.description}</p>
-                  <a href={`/post/${article.id}`}>
+                  <Link href={`/post/${article.id}`}>
                     <p className="item_more_btn">MORE &gt;</p>
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}

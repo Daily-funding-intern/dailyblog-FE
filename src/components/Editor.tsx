@@ -4,8 +4,11 @@ import { EditorContent, useEditor, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
+import Underline from "@tiptap/extension-underline";
+import Highlight from "@tiptap/extension-highlight";
 import { useEffect } from "react";
 import { apiUploadFile } from "@/lib/api";
+import "./Editor.css";
 
 interface RichTextEditorProps {
   content?: string;
@@ -24,6 +27,10 @@ export default function RichTextEditor({
       Image,
       Link.configure({
         openOnClick: false,
+      }),
+      Underline, // 밑줄 확장
+      Highlight.configure({
+        multicolor: true, // 여러 색상 지원
       }),
     ],
     content,
@@ -82,20 +89,100 @@ export default function RichTextEditor({
   return (
     <div>
       <div className="editor_toolbar">
+        {/* 기본 서식 */}
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "is_active" : ""}
+          title="굵게 (Ctrl+B)"
         >
           <strong>B</strong>
         </button>
+
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? "is_active" : ""}
+          title="기울임 (Ctrl+I)"
         >
           <em>I</em>
         </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          className={editor.isActive("underline") ? "is_active" : ""}
+          title="밑줄 (Ctrl+U)"
+        >
+          <u>U</u>
+        </button>
+
+        {/* 형광펜 색상 */}
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHighlight({ color: "#fef08a" }).run()
+          }
+          className={
+            editor.isActive("highlight", { color: "#fef08a" })
+              ? "is_active"
+              : ""
+          }
+          title="노란색 형광펜"
+          style={{ backgroundColor: "#fef08a" }}
+        >
+          <span style={{ mixBlendMode: "darken" }}>노랑</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHighlight({ color: "#bbf7d0" }).run()
+          }
+          className={
+            editor.isActive("highlight", { color: "#bbf7d0" })
+              ? "is_active"
+              : ""
+          }
+          title="초록색 형광펜"
+          style={{ backgroundColor: "#bbf7d0" }}
+        >
+          <span style={{ mixBlendMode: "darken" }}>초록</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHighlight({ color: "#bfdbfe" }).run()
+          }
+          className={
+            editor.isActive("highlight", { color: "#bfdbfe" })
+              ? "is_active"
+              : ""
+          }
+          title="파란색 형광펜"
+          style={{ backgroundColor: "#bfdbfe" }}
+        >
+          <span style={{ mixBlendMode: "darken" }}>파랑</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHighlight({ color: "#fecaca" }).run()
+          }
+          className={
+            editor.isActive("highlight", { color: "#fecaca" })
+              ? "is_active"
+              : ""
+          }
+          title="빨간색 형광펜"
+          style={{ backgroundColor: "#fecaca" }}
+        >
+          <span style={{ mixBlendMode: "darken" }}>빨강</span>
+        </button>
+
+        {/* 제목 */}
         <button
           type="button"
           onClick={() =>
@@ -104,9 +191,11 @@ export default function RichTextEditor({
           className={
             editor.isActive("heading", { level: 2 }) ? "is_active" : ""
           }
+          title="제목 2"
         >
           H2
         </button>
+
         <button
           type="button"
           onClick={() =>
@@ -115,24 +204,32 @@ export default function RichTextEditor({
           className={
             editor.isActive("heading", { level: 3 }) ? "is_active" : ""
           }
+          title="제목 3"
         >
           H3
         </button>
+
+        {/* 목록 */}
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive("bulletList") ? "is_active" : ""}
+          title="글머리 기호 목록"
         >
           • 목록
         </button>
+
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={editor.isActive("orderedList") ? "is_active" : ""}
+          title="번호 매기기 목록"
         >
           1. 목록
         </button>
-        <button type="button" onClick={addImage}>
+
+        {/* 이미지 */}
+        <button type="button" onClick={addImage} title="이미지 삽입">
           🖼️ 이미지
         </button>
       </div>

@@ -1,0 +1,248 @@
+/* 에디터 툴바 */
+.editor_toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  flex-wrap: wrap;
+}
+
+.editor_toolbar button {
+  padding: 0.5rem 0.75rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.editor_toolbar button:hover {
+  background: #e9e9e9;
+}
+
+.editor_toolbar button.is_active {
+  background: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+/* 에디터 컨텐츠 영역 */
+.editor_content {
+  border: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  background: white;
+  min-height: 400px;
+}
+
+/* Tiptap 에디터 내부 스타일 - 중요! */
+.editor_content .ProseMirror {
+  padding: 1rem;
+  min-height: 400px;
+  outline: none;
+}
+
+/* 에디터 내부 텍스트 스타일 적용 */
+.editor_content .ProseMirror strong {
+  font-weight: bold;
+}
+
+.editor_content .ProseMirror em {
+  font-style: italic;
+}
+
+.editor_content .ProseMirror h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.editor_content .ProseMirror h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.editor_content .ProseMirror p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.editor_content .ProseMirror ul,
+.editor_content .ProseMirror ol {
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.editor_content .ProseMirror ul {
+  list-style-type: disc;
+}
+
+.editor_content .ProseMirror ol {
+  list-style-type: decimal;
+}
+
+.editor_content .ProseMirror li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.editor_content .ProseMirror li p {
+  margin-bottom: 0.5rem;
+}
+
+.editor_content .ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* 포커스 시 테두리 */
+.editor_content .ProseMirror:focus {
+  outline: none;
+}
+
+.editor_content:focus-within {
+  border-color: #4caf50;
+}
+
+/* 플레이스홀더 */
+.editor_content .ProseMirror p.is-editor-empty:first-child::before {
+  content: "본문 내용을 입력하세요...";
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+  float: left;
+}
+
+/* 에디터 툴바 스타일 개선 */
+.editor_toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  align-items: center;
+}
+
+.editor_toolbar button {
+  padding: 6px 12px;
+  min-width: 36px;
+  height: 36px;
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor_toolbar button:hover:not(:disabled) {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.editor_toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editor_toolbar button.is_active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* 형광펜 버튼 특별 스타일 */
+.editor_toolbar button[style*="background-color"] {
+  border: 2px solid #dee2e6;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.editor_toolbar button[style*="background-color"].is_active {
+  border-color: #495057;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 툴바 구분선 */
+.toolbar_divider {
+  width: 1px;
+  height: 24px;
+  background-color: #dee2e6;
+  margin: 0 4px;
+}
+
+/* 에디터 콘텐츠 영역 */
+.editor_content {
+  border: 1px solid #dee2e6;
+  border-radius: 0 0 8px 8px;
+  background-color: white;
+  min-height: 400px;
+}
+
+.editor_content .ProseMirror {
+  padding: 16px;
+  outline: none;
+  min-height: 400px;
+}
+
+.editor_content .ProseMirror:focus {
+  outline: none;
+}
+
+/* 에디터 내 하이라이트 스타일 */
+.editor_content .ProseMirror mark {
+  padding: 2px 0;
+  border-radius: 2px;
+}
+
+/* 에디터 내 밑줄 스타일 */
+.editor_content .ProseMirror u {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+}
+
+/* 에디터 내 이미지 스타일 */
+.editor_content .ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .editor_toolbar {
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .editor_toolbar button {
+    min-width: 32px;
+    height: 32px;
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .toolbar_divider {
+    height: 20px;
+  }
+}

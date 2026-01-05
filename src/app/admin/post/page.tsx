@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { apiGet, apiDelete } from "@/lib/api";
 import { Article } from "@/app/types";
 import "../admin.css";
+import Link from "next/link";
 
 export default function AdminPostPage() {
   const router = useRouter();
@@ -102,11 +103,8 @@ export default function AdminPostPage() {
         </div>
 
         <nav className="admin_nav">
-          <a href="/admin/post" className="active">
-            포스트 관리
-          </a>
-          <a href="/admin/post/add">새 글 작성</a>
-          <a href="/admin/categories">카테고리 관리</a>
+          <Link href={"/admin/post"}>포스트 관리</Link>
+          <Link href={"/admin/category"}>카테고리 관리</Link>
         </nav>
 
         <button className="logout_btn" onClick={handleLogout}>

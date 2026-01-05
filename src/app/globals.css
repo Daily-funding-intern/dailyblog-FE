@@ -166,3 +166,40 @@ button {
   background-color: #ecf2f7;
   cursor: initial;
 }
+
+/* 커스텀 404 */
+.custom_404_wrapper {
+  padding: 135px 30px;
+  text-align: center;
+}
+.custom_404_wrapper img {
+  width: 100%;
+  max-width: 539px;
+  margin-bottom: 17px;
+  margin-right: 10px;
+}
+.custom_404_wrapper h1 {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 40px;
+  margin-bottom: 18px;
+}
+@media only screen and (max-width: 580px) {
+  .custom_404_wrapper h1 {
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 15px;
+  }
+}
+.custom_404_wrapper h3 {
+  color: #bfbfbf;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+}
+@media only screen and (max-width: 580px) {
+  .custom_404_wrapper h3 {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}

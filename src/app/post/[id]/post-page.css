@@ -496,3 +496,4 @@
   color: #909090;
   font-size: 14px;
 }
+.article_content_wrap img { max-width: 100%; }

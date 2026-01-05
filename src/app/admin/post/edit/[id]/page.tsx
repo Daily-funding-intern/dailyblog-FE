@@ -82,9 +82,6 @@ export default function EditPost() {
                 </option>
               ))}
             </select>
-            <small style={{ color: "#666", marginTop: "5px" }}>
-              현재 선택: {formData.category_id}
-            </small>
           </section>
 
           {/* 제목 */}

@@ -29,6 +29,8 @@ export default function AdminPostPage() {
     }
   }, [currentPage, isAuthenticated]);
 
+  const PAGE_SIZE = 6;
+
   const fetchPosts = async (page: number) => {
     try {
       // fetchWithAuth로 자동 인증
@@ -38,8 +40,7 @@ export default function AdminPostPage() {
       setPosts(results);
 
       if (data.count) {
-        const pageSize = data.results?.length || 10;
-        setTotalPages(Math.ceil(data.count / pageSize));
+        setTotalPages(Math.ceil(data.count / PAGE_SIZE));
         setTotalCount(data.count);
       }
     } catch (error) {
@@ -161,7 +162,13 @@ export default function AdminPostPage() {
                     </a>
                   </td>
                   <td>{post.category.name}</td>
-                  <td>{new Date().toLocaleDateString("ko-KR")}</td>
+                  <td>
+                    {post.created_at
+                      ? new Date(post.created_at)
+                          .toLocaleDateString("ko-KR")
+                          .slice(0, -1)
+                      : "-"}
+                  </td>
                   <td>
                     <button
                       className="btn_edit"

@@ -10,13 +10,14 @@ export interface Article {
   description?: string;
   thumbnail: string;
   category: Category;
+  created_at?: Date;
 }
 
 export interface Post {
   id: number;
   title: string;
   content: string;
-  subtitle?: string;
+  subtitle: string;
   description?: string;
   thumbnail: string;
   category: Category;

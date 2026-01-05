@@ -106,7 +106,7 @@ export default function Home() {
   const handleCategoryClick = (selectedCategoryId: number | null) => {
     const path =
       selectedCategoryId === null ? "/" : `/category/${selectedCategoryId}`;
-    router.push(path);
+    router.replace(path, { scroll: false });
   };
 
   const handleLoadMore = () => {

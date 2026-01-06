@@ -34,7 +34,7 @@ export default function AdminPostPage() {
   const fetchPosts = async (page: number) => {
     try {
       // fetchWithAuth로 자동 인증
-      const data = await apiGet(`/api/post/?page=${page}`);
+      const data = await apiGet(`/api/adminPage/?page=${page}`);
 
       const results = data.results ?? data;
       setPosts(results);
@@ -135,6 +135,7 @@ export default function AdminPostPage() {
               <th>카테고리</th>
               <th>작성일</th>
               <th>관리</th>
+              <th>총 조회수</th>
             </tr>
           </thead>
           <tbody>
@@ -183,6 +184,7 @@ export default function AdminPostPage() {
                       삭제
                     </button>
                   </td>
+                  <td>{post.visit_count}</td>
                 </tr>
               ))
             )}

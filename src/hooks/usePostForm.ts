@@ -28,6 +28,7 @@ export function usePostForm({
 
   const [thumbnailUrl, setThumbnailUrl] = useState<string>("");
   const [editorContent, setEditorContent] = useState<string>("");
+  const [isFeatured, setIsFeatured] = useState(false);
 
   // 카테고리 목록 불러오기
   useEffect(() => {
@@ -64,6 +65,7 @@ export function usePostForm({
 
       setEditorContent(data.content);
       setThumbnailUrl(data.thumbnail);
+      setIsFeatured(data.is_featured);
     } catch (error) {
       console.error("포스트 불러오기 실패:", error);
       alert("포스트를 불러올 수 없습니다.");
@@ -93,7 +95,7 @@ export function usePostForm({
       subtitle: formData.subtitle,
       content: editorRef.current.getHTML(),
       category: parseInt(formData.category_id),
-      is_featured: true,
+      is_featured: isFeatured,
       thumbnail: thumbnailUrl,
     };
 
@@ -129,6 +131,9 @@ export function usePostForm({
     editorContent,
     editorRef,
 
+    isFeatured,
+    setIsFeatured,
+    
     // Actions
     updateFormData,
     setThumbnailUrl,

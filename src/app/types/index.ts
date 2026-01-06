@@ -11,6 +11,7 @@ export interface Article {
   thumbnail: string;
   category: Category;
   created_at?: Date;
+  visit_count: number;
 }
 
 export interface Post {
@@ -21,6 +22,7 @@ export interface Post {
   description?: string;
   thumbnail: string;
   category: Category;
+  is_featured: boolean;
 }
 
 export interface RecommendPost {

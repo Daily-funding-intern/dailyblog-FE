@@ -28,6 +28,9 @@ export default function EditPost() {
     setThumbnailUrl,
     setEditorContent,
     handleSubmit,
+
+    isFeatured,
+    setIsFeatured,
   } = usePostForm({ postId, isEditMode: true });
 
   if (authLoading || loading) {
@@ -117,6 +120,16 @@ export default function EditPost() {
               editorRef={editorRef}
             />
           </section>
+
+          <label className="flex items-center gap-2 cursor-pointer">
+  <input
+    type="checkbox"
+    checked={isFeatured}
+    onChange={(e) => setIsFeatured(e.target.checked)}
+    style={{ appearance: "auto" }}   
+  />
+  <span>공개</span>
+</label>
 
           {/* 제출 */}
           <div className="form_actions">

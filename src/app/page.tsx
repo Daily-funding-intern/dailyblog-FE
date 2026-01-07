@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { apiGet } from "@/lib/api";
 import AliceCarousel from "react-alice-carousel";
@@ -13,8 +13,11 @@ import "./home-page.css";
 
 export default function Home() {
   const router = useRouter();
-  const params = useParams();
-  const categoryId = params.id ? Number(params.id) : null;
+  const pathname = usePathname();
+
+  const categoryId = pathname.startsWith("/category/")
+    ? Number(pathname.split("/")[2])
+    : null;
 
   const [loading, setLoading] = useState(false);
   const [carouselArticles, setCarouselArticles] = useState<Article[]>([]);
@@ -91,22 +94,16 @@ export default function Home() {
     fetchArticles(1, categoryId);
 
     const scrollTimer = setTimeout(() => {
-      if (articlesRef.current) {
-        const articleTop = articlesRef.current.offsetTop;
-
-        if (window.scrollY !== articleTop) {
-          scrollToArticles();
-        }
-      }
+      scrollToArticles();
     }, 100);
-
-    return () => clearTimeout(scrollTimer); // cleanup
+    return () => clearTimeout(scrollTimer);
   }, [categoryId]);
 
   const handleCategoryClick = (selectedCategoryId: number | null) => {
-    const path =
+    const newPath =
       selectedCategoryId === null ? "/" : `/category/${selectedCategoryId}`;
-    router.replace(path, { scroll: false });
+
+    router.push(newPath, { scroll: false });
   };
 
   const handleLoadMore = () => {

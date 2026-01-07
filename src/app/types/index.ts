@@ -3,6 +3,11 @@ export interface Category {
   name: string;
 }
 
+export interface Creator {
+  id : number;
+  username : string;
+}
+
 export interface Article {
   id: number;
   title: string;
@@ -12,6 +17,7 @@ export interface Article {
   category: Category;
   created_at?: Date;
   visit_count: number;
+  creator : Creator;
 }
 
 export interface Post {

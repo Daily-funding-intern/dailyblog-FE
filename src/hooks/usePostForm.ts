@@ -105,7 +105,7 @@ export function usePostForm({
         alert("글이 수정되었습니다.");
         router.push(`/post/${postId}`);
       } else {
-        const data = await apiPost("/api/post-create/", postData);
+        const data = await apiPost("/api/post/", postData);
         alert("글이 등록되었습니다.");
         router.push(`/admin/post/`);
       }
